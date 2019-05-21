@@ -1,2 +1,2 @@
-# CatsVsDogs
+# CatsPics
 React JS application
