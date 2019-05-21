@@ -1,0 +1,28 @@
+.leftSide {
+  margin-right: auto; 
+  background: url('../img/cat.jpg');
+}
+.rightSide {
+  margin-left: auto; 
+  background: url('../img/dog.jpg');
+}
+.leftSide, .rightSide {
+  width: 50%;
+  background-position: center;
+  background-size: cover;
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+}
+.main {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+}
+.rightSide:hover, .leftSide:hover {
+  -webkit-filter: brightness(70%);
+}
+.ac-result {
+  position: absolute;
+  width: 100%;
+}
