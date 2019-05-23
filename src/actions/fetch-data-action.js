@@ -12,6 +12,14 @@ function saveDataToStore(data, type) {
   };
 }
 
+function addImageToStore(id, image, type) {
+  return {
+    type: type,
+    id: id,
+    image: image
+  };
+}
+
 const fetchData = () => {
   return dispatch => axios.get(url, config).then(response => {
     dispatch(saveDataToStore(response.data, 'SAVE_CAT_BREEDS'));
@@ -23,7 +31,8 @@ const fetchData = () => {
 
 const searchImages = (q) => {
   return dispatch => axios.get('https://api.thecatapi.com/v1/images/search' + q, config).then(responseImages => {
-    dispatch(saveDataToStore(responseImages.data[0], 'SAVE_CAT_IMAGES'));
+    var idBreed = q.slice(11);  
+    dispatch(addImageToStore(idBreed, responseImages.data[0].url, 'ADD_CAT_IMAGE'));
   }).catch(error => {
     // eslint-disable-next-line no-console
     console.log(error);

@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-
+import Auth from './Auth'
 class Header extends Component {
   constructor(props){
     super(props);
     this.state = {
-      plant: [],
+      isAuthHidden: true
     }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e){
+    this.setState({isAuthHidden: !this.state.isAuthHidden});
   }
 
   render() {
@@ -30,18 +35,22 @@ class Header extends Component {
                   <span>Home</span>
                 </Link>
                 <Link to="search" className="navbar-item">
-                  Search
+                  <span className="icon">
+                    <i className="fas fa-search"></i>
+                  </span>
+                  <span>Search</span>
                 </Link>
                 <span className="navbar-item">
-                  <Link to="/" className="button is-primary is-inverted">
+                  <div className="button is-primary is-inverted" onClick={this.handleClick}>
                     <span className="icon">
-                      <i className="fab fa-github"></i>
+                      <i className="fas fa-user"></i>
                     </span>
-                    <span>Download</span>
-                  </Link>
+                    <span>Log In</span>
+                  </div>
                 </span>
               </div>
             </div>
+            <Auth isHidden={this.state.isAuthHidden} />
           </div>
         </nav>
       </div>

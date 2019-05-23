@@ -9,7 +9,7 @@ class CatBreed extends Component {
     this.state = {
       id: '',
       name: '',
-      image: '',
+      images: [],
       description: '',
       temperament: '',
     }
@@ -17,22 +17,31 @@ class CatBreed extends Component {
 
   componentWillMount() {
     // request image of searched breed
-    this.props.searchImages(this.props.location.search);
+    if (this.props.catBreeds && this.props.catBreeds.length) {
+      this.props.searchImages(this.props.location.search);      
+    }
   }
 
+  //after all breeds loaded
   componentWillReceiveProps(nextProps) {
+
+    if (!(this.state.images && this.state.images.length) && !nextProps.isLoadedImage){
+      this.props.searchImages(this.props.location.search);
+    }
     if (nextProps.isLoadedImage === true && nextProps.catBreeds !== []) {
+      
       var idBreed = nextProps.location.search.slice(11);
       var breed = nextProps.catBreeds.find(element => {
         return element.id === idBreed;
       });
 
-      if (breed !== undefined){
+      if (breed !== undefined && breed.images !== []){
+        
         this.setState({ id: breed.id,
           name: breed.name,
           description: breed.description,
           temperament: breed.temperament,
-          image: nextProps.catBreedImages.url});
+          images: breed.images});
       }
       
     };
@@ -57,7 +66,11 @@ class CatBreed extends Component {
             <p>Temperament: {this.state.temperament}</p>
           </div>
           <div className="column">
-            <img src={this.state.image} alt="Img" />
+            {
+              this.state.images.map((image, key) => {
+                return <img src={image} key={key} alt="Img" />
+              })
+            }
           </div>
         </div>
       </div>

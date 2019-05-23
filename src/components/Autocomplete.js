@@ -84,7 +84,6 @@ class Autocomplete extends Component {
   }
 
   handleSelectSuggestion(value, id) {
-    console.log('handleSelectSuggestion');
     this.props.handleChangeSet(value, id);
     this.setState({
       query: value,
@@ -97,8 +96,8 @@ class Autocomplete extends Component {
     return (
       <div>
         <input
-          id={this.props.key}
-          key={this.props.key}
+          id={this.props.keyName}
+          key={this.props.keyName}
           type="text"
           value={this.state.query}
           onChange={this.handleChange}
@@ -106,7 +105,7 @@ class Autocomplete extends Component {
           onKeyUp={this.handleKeyPress}
           name={this.props.name}
           placeholder={this.props.placeholder}
-          className="input"
+          className="input is-medium"
           data-id={this.state.id}
         />
         <div className="ac-result">

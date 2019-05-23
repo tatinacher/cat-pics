@@ -1,2 +1,2 @@
 export const SAVE_CAT_BREEDS = 'SAVE_CAT_BREEDS';
-export const SAVE_CAT_IMAGES = 'SAVE_CAT_IMAGES';
+export const ADD_CAT_IMAGE = 'ADD_CAT_IMAGE';

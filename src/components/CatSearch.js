@@ -58,26 +58,26 @@ class CatSearch extends Component {
   render() {
     const {isLoaded} = this.props;
     if (!isLoaded) {
-      return <div className="columns is-vcentered is-centered">Is loading...</div>;
+      return <section className="level-item has-text-centered">Is loading...</section>;
     }
     return (
-      <section className="columns is-vcentered is-centered">
+      <section className="level-item has-text-centered">
         <form onSubmit={this.handleSubmit} autoComplete="off">
           <div className="field has-addons">
               <div className="control">
                 <Autocomplete
-                      key="cat_breeds"
+                      keyName="cat_breeds"
                       data={this.state.cats}
                       handleChange={this.handleChange}
                       handleChangeSet={this.handleChangeFrom}
-                      placeholder="Type cat name"
+                      placeholder="Type cat breed"
                       name="cat_breeds"
                       value={this.state.cat}
                       data-id={this.state.id}
                     />
             </div>
             <div className="control">
-              <input className="button is-info" type="submit" value="Search" />
+              <input className="button is-info is-medium" type="submit" value="Search" />
             </div>
           </div>
         </form>

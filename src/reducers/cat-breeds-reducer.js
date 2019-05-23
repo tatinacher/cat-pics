@@ -13,9 +13,20 @@ export function catBreedsReducer(state = initialState, action) {
         catBreeds: action.data,
         isLoaded: true
       });
-    case types.SAVE_CAT_IMAGES:
+    case types.ADD_CAT_IMAGE:
+      console.log(action.image)
+      let breeds = state.catBreeds.slice();
+      breeds.forEach(el => {
+        if (el.id === action.id){
+          if (el.images){
+            el.images.push(action.image);
+          } else {
+            el.images = [action.image];
+          }
+        }
+      })
       return Object.assign({}, state, {
-        catBreedImages: action.data,
+        catBreeds: breeds,
         isLoadedImage: true
       });
     default:
