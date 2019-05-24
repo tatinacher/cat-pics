@@ -26,7 +26,16 @@ class CatPicRandom extends Component {
     return (
       <div className="container ">
         <h1 className="title">Click the picture to load another one 🐈</h1>
-        <img src={image} alt="Random cat img" className="randomImage" onClick={this.loadNewPic} />
+        <div className="randomImage columns is-gapless">
+          <div className="column">
+            <img src={image} alt="Random cat img" className="random-image" onClick={this.loadNewPic} />
+            <button class="star-image">
+              <span className="icon has-text-star">
+                <i className="far fa-star fa-2x"></i>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

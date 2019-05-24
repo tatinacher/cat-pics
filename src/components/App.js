@@ -27,7 +27,7 @@ class App extends Component {
       <section className="hero is-fullheight">
         <Header checkLogin={this.checkLogin} />
         <Switch>
-          <Route exact path='/' render={props => <CatPage {...props} title="Look at pictures of cats!"/> } />
+          <Route exact path='/' render={props => <CatPage {...props} title="Beautiful pictures of cats!"/> } />
           <Route exact path='/search' component={CatSearchResult}/>
           <Route
             path="/favorites"

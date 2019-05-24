@@ -50,12 +50,18 @@
 .has-text-star {
   color: #ffd257;
 }
-.logout-button {
+.logout-button, .star-image {
   padding: 0;
   border: none;
   background: none;
 }
-.randomImage {
+.random-image {
   max-width: 500px;
   max-height: 500px;
+}
+.star-image {
+  position: absolute;
+}
+.star-image:hover {
+  color: #a55500;
 }
