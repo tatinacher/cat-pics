@@ -10,7 +10,7 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="hero-foot footer">
+      <div className="hero-foot">
         <div className="container">
           <span className="is-pulled-right">2019 Tatiana Cherednichenko</span>
         </div>

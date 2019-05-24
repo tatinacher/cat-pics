@@ -15,8 +15,7 @@
   padding: 15px;
   border-radius: 3px;
   top: 5px;
-  border: 1px solid #f2f2f2;
-
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2)
 }
 .dropdown-caret .caret-outer {
   border-bottom: 10px solid #657786;
@@ -46,4 +45,7 @@
   position: absolute;
   display: inline-block;
   margin-left: -1px;
+}
+.has-text-star {
+  color: #ffd257;
 }
