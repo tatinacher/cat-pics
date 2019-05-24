@@ -20,6 +20,13 @@ function addImageToStore(id, image, type) {
   };
 }
 
+function saveRandomPic(data,type) {
+  return {
+    type: type,
+    data: data
+  };
+}
+
 const fetchData = () => {
   return dispatch => axios.get(url, config).then(response => {
     dispatch(saveDataToStore(response.data, 'SAVE_CAT_BREEDS'));
@@ -39,6 +46,15 @@ const searchImages = (q) => {
   });
 };
 
+const getRandomPic = () => {
+  return dispatch => axios.get('https://api.thecatapi.com/v1/images/search', config).then(responseImages => {
+    dispatch(saveRandomPic(responseImages.data[0].url, 'SAVE_RANDOM_PIC'));
+  }).catch(error => {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  });
+};
 
-export default {fetchData, searchImages};
+
+export default {fetchData, searchImages, getRandomPic};
 

@@ -1,6 +1,7 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
+  randomPic: '',
   catBreeds: [],
   isLoaded: false,
   isLoadedImage: false
@@ -13,6 +14,10 @@ export function catBreedsReducer(state = initialState, action) {
         catBreeds: action.data,
         isLoaded: true
       });
+    case types.SAVE_RANDOM_PIC:
+        return Object.assign({}, state, {
+          randomPic: action.data
+        });
     case types.ADD_CAT_IMAGE:
       console.log(action.image)
       let breeds = state.catBreeds.slice();

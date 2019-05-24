@@ -7,21 +7,29 @@ class Header extends Component {
     this.state = {
       username: ''
     }
-    this.authorize = this.authorize.bind(this);
+    this.logIn = this.logIn.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
-  authorize(name) {
+  logIn(name) {
     this.setState({username: name});
   }
+
+  logOut() {
+    console.log(1);
+    sessionStorage.removeItem('user');
+    this.setState({username: ''});
+  }
+
 
   render() {
     if (this.props.checkLogin()){
       return(
-        <HeaderAuthorized name={this.state.username} />
+        <HeaderAuthorized name={this.state.username} logOut={this.logOut} />
       );
     } else {
       return(
-        <HeaderUnauthorized authorize={this.authorize} />
+        <HeaderUnauthorized logIn={this.logIn} />
       );
     }
   }

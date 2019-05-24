@@ -5,6 +5,7 @@
 .background-cat{
   background: url('../img/background.jpg') no-repeat center center fixed; ;
   background-size: cover;
+  min-height: 400px;
 }
 .auth-form{
   position: absolute;
@@ -48,4 +49,13 @@
 }
 .has-text-star {
   color: #ffd257;
+}
+.logout-button {
+  padding: 0;
+  border: none;
+  background: none;
+}
+.randomImage {
+  max-width: 500px;
+  max-height: 500px;
 }

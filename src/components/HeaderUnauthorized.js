@@ -53,7 +53,7 @@ class HeaderUnauthorized extends Component {
                 </span>
               </div>
             </div>
-            <Auth isHidden={this.state.isAuthHidden} authorize={this.props.authorize}  />
+            <Auth isHidden={this.state.isAuthHidden} logIn={this.props.logIn}  />
           </div>
         </nav>
       </div>

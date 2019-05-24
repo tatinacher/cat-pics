@@ -12,7 +12,8 @@ class Footer extends Component {
     return (
       <div className="hero-foot">
         <div className="container">
-          <span className="is-pulled-right">2019 Tatiana Cherednichenko</span>
+          <span>Thanks to thecatapi.com</span>
+          <span className="is-pulled-right">Made in 2019 by Tatiana Cherednichenko</span>
         </div>
       </div>
     );

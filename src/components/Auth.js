@@ -20,7 +20,7 @@ class Auth extends Component {
     if (this.props.users[this.state.name] && this.props.users[this.state.name] === this.state.password) {
       this.setState({logIn: true});
       sessionStorage.setItem('user', 'user');
-      this.props.authorize(this.state.name);
+      this.props.logIn(this.state.name);
     }
   }
   

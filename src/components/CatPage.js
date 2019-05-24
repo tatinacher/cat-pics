@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CatSearch from './CatSearch';
+import CatPicRandom from './CatPicRandom';
 
 
 class CatPage extends Component {
@@ -10,8 +11,9 @@ class CatPage extends Component {
 
   render() {
     return (
+      <div>
       <section className="hero-body background-cat">
-        <div className="container is-desktop is-vcentered has-text-centered">
+        <div className="container is-desktop is-vcentered has-text-centered ">
           <h1 className="title is-3 has-text-white">
             CatPics
           </h1>
@@ -23,6 +25,12 @@ class CatPage extends Component {
           </div>
         </div>
       </section>
+      <section className="hero-body">
+        <div className="container is-desktop is-vcentered has-text-centered">
+          <CatPicRandom />
+        </div>
+      </section>
+      </div>
     );
   }
 }

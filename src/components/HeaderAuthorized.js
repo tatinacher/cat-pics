@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import Dropdown from './Dropdown'
+
 class HeaderAuthorized extends Component {
   constructor(props){
     super(props);
@@ -58,6 +60,7 @@ class HeaderAuthorized extends Component {
                 </span>
               </div>
             </div>
+            <Dropdown isHidden={this.state.isAuthHidden} logOut={this.props.logOut} />
           </div>
         </nav>
       </div>
