@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import { withRouter } from "react-router";
 import HeaderAuthorized from './HeaderAuthorized';
 import HeaderUnauthorized from './HeaderUnauthorized';
 import Dropdown from './Dropdown'
 import {Link} from 'react-router-dom';
 import Auth from './Auth'
+
 
 class Header extends Component {
   constructor(props){
@@ -18,12 +21,15 @@ class Header extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentWillMount(){
+    this.setState({username: this.props.name})
+  }
+
   logIn(name) {
     this.setState({username: name});
   }
 
   logOut() {
-    console.log(1);
     sessionStorage.removeItem('user');
     this.setState({username: ''});
   }
@@ -86,4 +92,6 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = store => ({ name: store.users.activeUser});
+
+export default withRouter(connect(mapStateToProps)(Header));

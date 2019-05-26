@@ -1,25 +1,74 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router";
+import {connect} from 'react-redux';
 import CatSearch from './CatSearch';
 
 
 class Favorites extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      images: [],
+      user: ''
+    }
+  }
   
   componentWillMount() {
     document.title = this.props.title || 'Cats';
+    if (this.props.activeUser && this.props.users){
+      let username = this.props.activeUser;
+      let users = this.props.users;
+      let images = users[username].img;
+      this.setState({user: username, images: images});
+    }
   }
 
-  render() {
-    return (
-      <section className="hero-body background-cat">
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activeUser && nextProps.users){
+      let username = nextProps.activeUser;
+      let users = nextProps.users;
+      let images = users[username].img;
+      this.setState({user: username, images: images});
+    }
+  }
+
+  emptyFavorites(){
+    console.log(1)
+    return(
+      <section className="hero-body">
         <div className="container is-desktop is-vcentered has-text-centered">
-          <h1 className="title is-3 has-text-white">
-            FAVORITES
+          <h1 className="title is-3">
+            There is no favorite images
           </h1>
-          <h2 className="subtitle has-text-white">
-          FAVORITES
+          <h2>
+            You can find images in search page and add it to favorites.
           </h2>
-          <div className="level">
-            <CatSearch />
+        </div>
+      </section>
+    );
+  }
+
+
+
+  render() {
+    console.log(this.state.images);
+    if (this.state.images && this.state.images.length === 0){
+      return this.emptyFavorites();
+    }
+    return (
+      <section className="hero-body">
+        <div className="container is-desktop is-vcentered has-text-centered">
+          <h1 className="title is-3">
+            Favorite images
+          </h1>
+          <div class="favorite-imgs">
+            {
+              this.state.images.map((img,key) => 
+                <div class="img-container" key={key}>
+                  <img src={img} alt="Random cat img" className="fav-image" />
+                </div>
+              )
+            }
           </div>
         </div>
       </section>
@@ -27,4 +76,6 @@ class Favorites extends Component {
   }
 }
 
-export default Favorites;
+const mapStateToProps = store => ({ users: store.users.user, activeUser: store.users.activeUser});
+
+export default withRouter(connect(mapStateToProps)(Favorites));

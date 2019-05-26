@@ -65,3 +65,13 @@
 .star-image:hover {
   color: #a55500;
 }
+.fav-image{
+  max-height:100%; 
+  max-width:100%;
+}
+.img-container{
+  width:25%;
+  display: inline-block;
+  padding: 5px;
+  vertical-align: middle;
+}

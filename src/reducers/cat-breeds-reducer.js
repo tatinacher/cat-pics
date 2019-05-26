@@ -19,7 +19,6 @@ export function catBreedsReducer(state = initialState, action) {
           randomPic: action.data
         });
     case types.ADD_CAT_IMAGE:
-      console.log(action.image)
       let breeds = state.catBreeds.slice();
       breeds.forEach(el => {
         if (el.id === action.id){

@@ -9,19 +9,41 @@ import CatSearchResult from './CatSearchResult';
 import Favorites from './Favorites';
 import {connect} from 'react-redux';
 import fetch from '../actions/fetch-data-action';
+import userActions from '../actions/user-action';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      isLogin: false
+    }
+    this.isUserTokenValid = this.isUserTokenValid.bind(this);
+    this.checkLogin = this.checkLogin.bind(this);
+  }
+
   componentWillMount() {
     this.props.fetchData();
+    this.checkLogin();
   }
 
   checkLogin() {
-    const login = sessionStorage.getItem('user');
-    console.log(login)
-    return login === 'user' || false;
+    if (this.state.isLogin)
+      return true;
+    const token = sessionStorage.getItem('user');
+    if(token === null)
+      return false;
+    return this.isUserTokenValid(token);
   }
 
-
+  // check if valid
+  isUserTokenValid(token){
+    if(this.props.users[token]){
+      this.props.authUser(token);
+      this.setState({isLogin: true});
+      return true;
+    }
+    return false;
+  }
   render() {
     return (
       <section className="hero is-fullheight">
@@ -43,8 +65,11 @@ class App extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchData: () => dispatch(fetch.fetchData())
+    fetchData: () => dispatch(fetch.fetchData()),
+    authUser: (user) => dispatch(userActions.authUser(user))
   };
 }
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = store => ({ users: store.users.user});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
