@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import {connect} from 'react-redux';
 import ImageCard from './ImageCard';
-
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
 class Favorites extends Component {
   constructor(props){
     super(props);
     this.state = {
       images: [],
-      user: ''
+      user: '',
+      photoIndex: 0,
+      isOpen: false,
     }
   }
   
@@ -53,6 +56,7 @@ class Favorites extends Component {
       return this.emptyFavorites();
     }
     
+    const { photoIndex, isOpen } = this.state;
     return (
       <section className="hero-body">
         <div className="container is-desktop is-vcentered has-text-centered">
@@ -63,11 +67,30 @@ class Favorites extends Component {
             {
               this.state.images.map((img,key) => 
                 <div key={key} className="img-container">
-                  <ImageCard img={img} isInFav={true} user={this.state.user}/>
+                  <ImageCard img={img} isInFav={true} user={this.state.user} onClick={() => this.setState({ isOpen: true, photoIndex: key })} />
                 </div>
               )
             }
           </div>
+ 
+        {isOpen && (
+          <Lightbox
+            mainSrc={this.state.images[photoIndex]}
+            nextSrc={this.state.images[(photoIndex + 1) % this.state.images.length]}
+            prevSrc={this.state.images[(photoIndex + this.state.images.length - 1) % this.state.images.length]}
+            onCloseRequest={() => this.setState({ isOpen: false })}
+            onMovePrevRequest={() =>
+              this.setState({
+                photoIndex: (photoIndex + this.state.images.length - 1) % this.state.images.length,
+              })
+            }
+            onMoveNextRequest={() =>
+              this.setState({
+                photoIndex: (photoIndex + 1) % this.state.images.length,
+              })
+            }
+          />
+        )}
         </div>
       </section>
     );

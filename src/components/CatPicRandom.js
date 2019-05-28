@@ -4,6 +4,8 @@ import fetch from '../actions/fetch-data-action';
 import userActions from '../actions/user-action';
 import { withRouter } from "react-router";
 import ImageCard from './ImageCard';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
 class CatPicRandom extends Component {
   constructor(props){
@@ -12,6 +14,8 @@ class CatPicRandom extends Component {
       image: '',
       user: '',
       isInFav: false,
+      photoIndex: 0,
+      isOpen: false,
     }
     this.loadNewPic = this.loadNewPic.bind(this);
     this.isImageInFav = this.isImageInFav.bind(this);
@@ -42,12 +46,32 @@ class CatPicRandom extends Component {
   render() {
     if (this.state.image === '')
       return <div>No images for you</div>;
+    const { photoIndex, isOpen } = this.state;
+    
     return (
       <div className="container ">
         <h1 className="title">You can add cats to favorite album. Just click on star. <span role="img" aria-label="cat">🐈</span></h1>
         <div className="randomImage columns is-gapless">
           <div className="column">
-            <ImageCard img={this.state.image} isInFav={this.state.isInFav} user={this.state.user}/>
+            <ImageCard img={this.state.image} isInFav={this.state.isInFav} user={this.state.user}  onClick={() => this.setState({ isOpen: true})} />
+            {isOpen && (
+              <Lightbox
+                mainSrc={this.state.image}
+                nextSrc={null}
+                prevSrc={null}
+                onCloseRequest={() => this.setState({ isOpen: false })}
+                onMovePrevRequest={() =>
+                  this.setState({
+                    photoIndex: 0,
+                  })
+                }
+                onMoveNextRequest={() =>
+                  this.setState({
+                    photoIndex: 0,
+                  })
+                }
+              />
+            )}
             <button onClick={this.loadNewPic}>Load new image</button>
           </div>
         </div>

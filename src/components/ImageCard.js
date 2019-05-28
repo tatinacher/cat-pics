@@ -30,12 +30,13 @@ class ImageCard extends Component {
     const toggleFavorite = (this.props.isInFav) ? this.deleteImgFromFavorite : this.saveImgToFavorite;
     const star_icon = (this.props.isInFav) ? "fas fa-star fa-2x": "far fa-star fa-2x";
     return(
-        <div key={this.props.isInFav} className="img-block" style={divStyle(this.props.img)}>
+        <div key={this.props.isInFav} className="img-block" style={divStyle(this.props.img)} >
               <button className="star-image" onClick={toggleFavorite} >
                 <span className="icon has-text-star">
                   <i className={star_icon}></i>
                   </span>
               </button>
+              <div className="image-clickable" onClick={this.props.onClick}></div>
             </div>
     );
   }

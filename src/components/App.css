@@ -111,3 +111,10 @@
 .img-block:hover:before {
   background: none;
 }
+.image-clickable{
+  height: 90%;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  z-index: 10;
+}
