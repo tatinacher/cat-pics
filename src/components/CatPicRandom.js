@@ -45,7 +45,7 @@ class CatPicRandom extends Component {
 
   render() {
     if (this.state.image === '')
-      return <div>No images for you</div>;
+      return <div id="preloader"></div>;
     const { photoIndex, isOpen } = this.state;
     
     return (

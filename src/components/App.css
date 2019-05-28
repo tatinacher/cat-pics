@@ -118,3 +118,21 @@
   bottom: 0;
   z-index: 10;
 }
+#preloader {
+  height: 30px;
+  width: 30px;
+  margin: 40vh auto;
+  border: 5px solid rgba(255, 227, 30, 0.45);
+  border-top: 5px solid rgb(255, 201, 49);
+  border-radius: 50%;
+  animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

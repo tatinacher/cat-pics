@@ -58,7 +58,7 @@ class CatSearch extends Component {
   render() {
     const {isLoaded} = this.props;
     if (!isLoaded) {
-      return <section className="level-item has-text-centered">Is loading...</section>;
+      return <section className="level-item has-text-centered"><div id="preloader"></div></section>;
     }
     return (
       <section className="level-item has-text-centered">
