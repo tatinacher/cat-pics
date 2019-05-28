@@ -58,9 +58,12 @@ class Header extends Component {
         <nav className="navbar has-shadow is-spaced">
           <div className="container">
             <div className="navbar-brand">
-              <span className="icon is-large has-text-danger">
-                <i className="fas fa-heart fa-2x"></i>
-              </span>
+              <Link to="/" className="navbar-item is-active">
+                <span className="icon has-text-warning is-large">
+                  <i className="fas fa-paw fa-2x"></i>
+                </span>
+                <p className="subtitle">CatPics</p>
+              </Link>
               <span className="navbar-burger burger" data-target="navbarMenuHeroA" onClick={this.toggleBurger}>
                 <span></span>
                 <span></span>
@@ -69,17 +72,11 @@ class Header extends Component {
             </div>
             <div id="navbarMenuHeroA" className="navbar-menu">
               <div className="navbar-end">
-                <Link to="/" className="navbar-item is-active">
-                  <span className="icon has-text-primary">
-                    <i className="fas fa-home"></i>
-                  </span>
-                  <span>Home</span>
-                </Link>
                 <Link to="search" className="navbar-item">
                   <span className="icon has-text-info">
                     <i className="fas fa-search "></i>
                   </span>
-                  <span>Search</span>
+                  <span>Explore</span>
                 </Link>
                 {headerAuth}
               </div>

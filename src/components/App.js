@@ -10,6 +10,7 @@ import Favorites from './Favorites';
 import {connect} from 'react-redux';
 import fetch from '../actions/fetch-data-action';
 import userActions from '../actions/user-action';
+import InfoBox from './InfoBox'
 
 class App extends Component {
   constructor(props){
@@ -47,6 +48,7 @@ class App extends Component {
   render() {
     return (
       <section className="hero is-fullheight">
+        <InfoBox />
         <Header checkLogin={this.checkLogin} />
         <Switch>
           <Route exact path='/' render={props => <CatPage {...props} title="Beautiful pictures of cats!"/> } />
