@@ -48,7 +48,7 @@
   margin-left: -1px;
 }
 .has-text-star {
-  color: #ffd257;
+  color: #ffd800;
 }
 .logout-button, .star-image {
   padding: 0;
@@ -59,9 +59,6 @@
   max-width: 500px;
   max-height: 500px;
 }
-.star-image {
-  position: absolute;
-}
 .star-image:hover {
   color: #a55500;
 }
@@ -69,9 +66,48 @@
   max-height:100%; 
   max-width:100%;
 }
-.img-container{
-  width:25%;
+.img-container {
   display: inline-block;
-  padding: 5px;
-  vertical-align: middle;
+}
+.img-block{
+  width: 280px;
+  height: 280px;
+  display: inline-block;
+  margin: 5px;
+  background-size: cover;
+  background-position: center;
+  text-align: right;
+  overflow: hidden;
+  z-index: 2;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+}
+.star-image{
+  display: none;
+  z-index: 100;
+}
+
+.img-block:hover .star-image {
+  display: inline-block;
+  position: relative;
+}
+.img-block:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0, 0.1);
+  -moz-transition: all .2s linear;
+  -webkit-transition: all .2s linear;
+  -ms-transition: all .2s linear;
+  -o-transition: all .2s linear;
+  transition: all .2s linear;
+  z-index:3
+}  
+.img-block:hover:before {
+  background: none;
 }

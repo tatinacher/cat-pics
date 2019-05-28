@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { withRouter } from "react-router";
 import userActions from '../actions/user-action';
 
-class Auth extends Component {
+class  extends Component {
   
   constructor(props){
     super(props);

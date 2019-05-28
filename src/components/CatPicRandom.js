@@ -3,55 +3,52 @@ import {connect} from 'react-redux';
 import fetch from '../actions/fetch-data-action';
 import userActions from '../actions/user-action';
 import { withRouter } from "react-router";
+import ImageCard from './ImageCard';
 
 class CatPicRandom extends Component {
   constructor(props){
     super(props);
     this.state = {
       image: '',
-      user: ''
+      user: '',
+      isInFav: false,
     }
     this.loadNewPic = this.loadNewPic.bind(this);
-    this.saveImgToFavorite = this.saveImgToFavorite.bind(this);
+    this.isImageInFav = this.isImageInFav.bind(this);
   }
   
   componentWillMount(){
-    if (this.props.randomPicture === ''){
+    const picture = this.props.randomPicture;
+    if (picture === ''){
       this.props.getRandomPic();
-      this.setState({image: this.props.randomPicture});
     }
-    this.setState({user: this.props.user})
+    this.setState({user: this.props.user});
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({image: nextProps.randomPicture, user: nextProps.user});
+    const isInFav = this.isImageInFav(nextProps);
+    this.setState({image: nextProps.randomPicture, user: nextProps.user, isInFav: isInFav});
   }
 
   loadNewPic(){
     this.props.getRandomPic();
     this.setState({image: this.props.randomPicture});
   }
-
-  saveImgToFavorite(){
-    console.log(this.state.user)
-    if(this.state.user && this.state.user !== '')
-      this.props.saveUserImage(this.state.user, this.state.image);
+  isImageInFav(nextProps){
+    const userImages = nextProps.users[this.state.user].img;
+    return userImages.has(nextProps.randomPicture);
   }
 
   render() {
     if (this.state.image === '')
-      return null;
+      return <div>No images for you</div>;
     return (
       <div className="container ">
-        <h1 className="title">Click the picture to load another one 🐈</h1>
+        <h1 className="title">You can add cats to favorite album. Just click on star. <span role="img" aria-label="cat">🐈</span></h1>
         <div className="randomImage columns is-gapless">
           <div className="column">
-            <img src={this.state.image} alt="Random cat img" className="random-image" onClick={this.loadNewPic} />
-            <button className="star-image" onClick={this.saveImgToFavorite}>
-              <span className="icon has-text-star">
-                <i className="far fa-star fa-2x"></i>
-              </span>
-            </button>
+            <ImageCard img={this.state.image} isInFav={this.state.isInFav} user={this.state.user}/>
+            <button onClick={this.loadNewPic}>Load new image</button>
           </div>
         </div>
       </div>
@@ -66,6 +63,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = store => ({ randomPicture: store.cats.randomPic, user: store.users.activeUser});
+const mapStateToProps = store => ({ randomPicture: store.cats.randomPic, user: store.users.activeUser, users: store.users.user});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CatPicRandom));

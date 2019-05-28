@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import {connect} from 'react-redux';
-import CatSearch from './CatSearch';
+import ImageCard from './ImageCard';
 
 
 class Favorites extends Component {
@@ -19,7 +19,7 @@ class Favorites extends Component {
       let username = this.props.activeUser;
       let users = this.props.users;
       let images = users[username].img;
-      this.setState({user: username, images: images});
+      this.setState({user: username, images: [...images]});
     }
   }
 
@@ -28,7 +28,7 @@ class Favorites extends Component {
       let username = nextProps.activeUser;
       let users = nextProps.users;
       let images = users[username].img;
-      this.setState({user: username, images: images});
+      this.setState({user: username, images: [...images]});
     }
   }
 
@@ -48,24 +48,22 @@ class Favorites extends Component {
     );
   }
 
-
-
   render() {
-    console.log(this.state.images);
     if (this.state.images && this.state.images.length === 0){
       return this.emptyFavorites();
     }
+    
     return (
       <section className="hero-body">
         <div className="container is-desktop is-vcentered has-text-centered">
           <h1 className="title is-3">
             Favorite images
           </h1>
-          <div class="favorite-imgs">
+          <div className="favorite-imgs">
             {
               this.state.images.map((img,key) => 
-                <div class="img-container" key={key}>
-                  <img src={img} alt="Random cat img" className="fav-image" />
+                <div key={key} className="img-container">
+                  <ImageCard img={img} isInFav={true} user={this.state.user}/>
                 </div>
               )
             }

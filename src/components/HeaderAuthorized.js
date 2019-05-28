@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import Dropdown from './Dropdown'
 
 class HeaderAuthorized extends Component {
   render() {
