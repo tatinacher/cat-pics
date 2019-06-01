@@ -22,30 +22,34 @@ class CatPicRandom extends Component {
   }
   
   componentWillMount(){
-    if (this.props.randomPicture === '')
+    if (this.props.image === ''){
       this.props.getRandomPic();
+    } else {
+      this.setState({image: this.props.image});
+    }
 
     if (this.props.user)
       this.setState({user: this.props.user});
   }
 
   componentWillReceiveProps(nextProps){
+
     if (nextProps.user && nextProps.users && this.state.user !== ''){
       const isInFav = this.isImageInFav(nextProps);
       this.setState({user: nextProps.user, isInFav: isInFav});
     }
     
-    this.setState({image: nextProps.randomPicture});
+    this.setState({image: nextProps.image});
   }
 
   loadNewPic(){
     this.props.getRandomPic();
-    this.setState({image: this.props.randomPicture});
+    this.setState({image: this.props.image});
   }
   
   isImageInFav(nextProps){
     const userImages = nextProps.users[this.state.user].img;
-    return userImages.has(nextProps.randomPicture);
+    return userImages.has(nextProps.image);
   }
 
   render() {
@@ -92,6 +96,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = store => ({ randomPicture: store.cats.randomPic, user: store.users.activeUser, users: store.users.user});
+const mapStateToProps = store => ({ image: store.cats.randomPic, user: store.users.activeUser, users: store.users.user});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CatPicRandom));
