@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Autocomplete from './Autocomplete';
 import { withRouter } from "react-router";
 
-class CatSearch extends Component {
+class CatExplore extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -64,17 +64,17 @@ class CatSearch extends Component {
       <section className="level-item has-text-centered">
         <form onSubmit={this.handleSubmit} autoComplete="off">
           <div className="field has-addons">
-            <div className="control">
-              <Autocomplete
-                    keyName="cat_breeds"
-                    data={this.state.cats}
-                    handleChange={this.handleChange}
-                    handleChangeSet={this.handleChangeFrom}
-                    placeholder="Type cat breed"
-                    name="cat_breeds"
-                    value={this.state.cat}
-                    data-id={this.state.id}
-                  />
+              <div className="control">
+                <Autocomplete
+                      keyName="cat_breeds"
+                      data={this.state.cats}
+                      handleChange={this.handleChange}
+                      handleChangeSet={this.handleChangeFrom}
+                      placeholder="Type cat breed"
+                      name="cat_breeds"
+                      value={this.state.cat}
+                      data-id={this.state.id}
+                    />
             </div>
             <div className="control">
               <input className="button is-info is-medium" type="submit" value="Search" />
@@ -88,4 +88,4 @@ class CatSearch extends Component {
 
 const mapStateToProps = store => ({cats: store.cats.catBreeds, isLoaded: store.cats.isLoaded});
 
-export default withRouter(connect(mapStateToProps)(CatSearch));
+export default withRouter(connect(mapStateToProps)(CatExplore));

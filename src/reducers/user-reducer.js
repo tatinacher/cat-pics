@@ -29,6 +29,11 @@ export function userReducer(state = initialState, action) {
         activeUser: username,
       });
 
+    case types.LOGOUT_USER:
+      return Object.assign({}, state, {
+        activeUser: '',
+      });
+
     case types.ADD_IMAGE_TO_FAVORITE:
         newSet.add(action.img);
         return Object.assign({}, state, {

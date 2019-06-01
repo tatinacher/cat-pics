@@ -18,10 +18,11 @@ class Dropdown extends Component {
           <span className="caret-outer"></span> 
           <span className="caret-inner"></span> 
         </div>
-        <div className="field">
+        <div className="button-close" onClick={this.props.closeDropdown}></div>
+        <div className="field settings">
           <Link to="/settings" className="">Settings</Link>
         </div>
-        <div className="field">
+        <div className="field logout">
           <Link to="#" className="logout-button" onClick={this.props.logOut} >Log Out</Link>
         </div>
       </div>

@@ -6,32 +6,25 @@ import HeaderUnauthorized from './HeaderUnauthorized';
 import Dropdown from './Dropdown'
 import {Link} from 'react-router-dom';
 import Auth from './Auth'
+import userActions from '../actions/user-action';
 
 
 class Header extends Component {
   constructor(props){
     super(props);
     this.state = {
-      username: '',
       isDropdownHidden: true,
-      isMenuHidden: true
+      isMenuHidden: true,
     }
-    this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentWillMount(){
-    this.setState({username: this.props.name})
-  }
-
-  logIn(name) {
-    this.setState({username: name});
+    this.toggleBurger = this.toggleBurger.bind(this);
   }
 
   logOut() {
     sessionStorage.removeItem('user');
-    this.setState({username: ''});
+    this.props.logOut();
+    this.setState({username: '', isDropdownHidden: true, isMenuHidden: true});
   }
 
   handleClick(e){
@@ -39,20 +32,24 @@ class Header extends Component {
   }
 
   toggleBurger(){
-    
+    this.setState({isMenuHidden: !this.state.isMenuHidden})
   }
 
   render() {
-    let isLogin = this.props.checkLogin();
+    let isLogin = this.props.isLogin;
     let headerAuth = isLogin ? 
-                      <HeaderAuthorized name={this.state.username} logOut={this.logOut} handleClick={this.handleClick} /> : 
+                      <HeaderAuthorized logOut={this.logOut} handleClick={this.handleClick} /> : 
                       <HeaderUnauthorized logIn={this.logIn} handleClick={this.handleClick} />;
 
     let headerDropdown = isLogin ? 
-                          <Dropdown isHidden={this.state.isDropdownHidden} logOut={this.logOut} /> :
-                          <Auth isHidden={this.state.isDropdownHidden} logIn={this.logIn}  />
+                          <Dropdown isHidden={this.state.isDropdownHidden} logOut={this.logOut}
+                                    closeMenu={() => {this.setState({isMenuHidden: true, isDropdownHidden: true})}}  
+                                    closeDropdown={() => {this.setState({isDropdownHidden: true})}} /> :
+                          <Auth isHidden={this.state.isDropdownHidden} logIn={this.logIn} 
+                                closeMenu={() => {this.setState({isMenuHidden: true, isDropdownHidden: true})}}  
+                                closeDropdown={() => {this.setState({isDropdownHidden: true})}} />
 
-
+    let menu_class = this.state.isMenuHidden ? "navbar-menu" : "navbar-menu open"
     return(
       <div className="hero-head">
         <nav className="navbar has-shadow is-spaced">
@@ -70,9 +67,9 @@ class Header extends Component {
                 <span></span>
               </span>
             </div>
-            <div id="navbarMenuHeroA" className="navbar-menu">
+            <div id="navbarMenuHeroA" className={menu_class}>
               <div className="navbar-end">
-                <Link to="search" className="navbar-item">
+                <Link to="explore" className="navbar-item">
                   <span className="icon has-text-info">
                     <i className="fas fa-search "></i>
                   </span>
@@ -89,6 +86,10 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = store => ({ name: store.users.activeUser});
+function mapDispatchToProps(dispatch) {
+  return {
+    logOut: () => dispatch(userActions.logOut()),
+  };
+}
 
-export default withRouter(connect(mapStateToProps)(Header));
+export default withRouter(connect(null, mapDispatchToProps)(Header));

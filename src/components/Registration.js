@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { withRouter } from "react-router";
 import userActions from '../actions/user-action';
 
-class  extends Component {
+class Registration extends Component {
   
   constructor(props){
     super(props);
@@ -35,27 +35,33 @@ class  extends Component {
 
   render() {
     return (
-      <form className={this.props.isHidden ? "auth-form is-hidden" : "auth-form"} onSubmit={this.handleSubmit}>
-        <div className="dropdown-caret right"> 
-          <span className="caret-outer"></span> 
-          <span className="caret-inner"></span> 
-        </div>
-        <div className="field">
-          <label className="label is-small">Username</label>
-          <div className="control">
-            <input className="input" type="text" name="name" placeholder="e.g catlover" onChange={this.handleChange} />
+      <div className="registration">
+        <h1 className="title">Registration</h1>
+        <form onSubmit={this.handleSubmit} className="container sign-up-form">
+          <div className="field">
+            <label className="label is-small">Username</label>
+            <div className="control">
+              <input className="input" type="text" name="name" placeholder="e.g catlover" onChange={this.handleChange} />
+            </div>
           </div>
-        </div>
-        <div className="field">
-          <label className="label is-small">Password</label>
-          <div className="control">
-            <input className="input" name="password" type="password" onChange={this.handleChange} />
+          <div className="field">
+            <label className="label is-small">Password</label>
+            <div className="control">
+              <input className="input" name="password" type="password" onChange={this.handleChange} />
+            </div>
           </div>
-        </div>
-        <div className="field">
-          <button className="button is-link is-fullwidth">Log In</button>
-        </div>
-      </form>
+          <div className="field">
+            <label className="label is-small">Password</label>
+            <div className="control">
+              <input className="input" name="password" type="password_check" onChange={this.handleChange} />
+            </div>
+          </div>
+          <div className="field">
+            <button className="button is-link is-fullwidth">Register</button>
+          </div>
+        </form>
+      </div>
+      
     );
   }
 }
@@ -68,4 +74,4 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = store => ({ users: store.users.user});
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Auth));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Registration));

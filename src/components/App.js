@@ -10,7 +10,9 @@ import Favorites from './Favorites';
 import {connect} from 'react-redux';
 import fetch from '../actions/fetch-data-action';
 import userActions from '../actions/user-action';
-import InfoBox from './InfoBox'
+import InfoBox from './InfoBox';
+import Explore from './Explore';
+import Registration from './Registration';
 
 class App extends Component {
   constructor(props){
@@ -24,10 +26,18 @@ class App extends Component {
 
   componentWillMount() {
     this.props.fetchData();
-    this.checkLogin();
+    this.checkLogin('a');
   }
 
-  checkLogin() {
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.isLogin && nextProps.activeUser !== '')
+      this.checkLogin('v');
+    if (nextProps.activeUser === '' && this.state.isLogin)
+      this.setState({isLogin: false});
+  }
+
+  checkLogin(a) {
+    console.log(a);
     if (this.state.isLogin)
       return true;
     const token = sessionStorage.getItem('user');
@@ -49,13 +59,19 @@ class App extends Component {
     return (
       <section className="hero is-fullheight">
         <InfoBox />
-        <Header checkLogin={this.checkLogin} />
+        <Header isLogin={this.state.isLogin} />
         <Switch>
           <Route exact path='/' render={props => <CatPage {...props} title="Beautiful pictures of cats!"/> } />
           <Route exact path='/search' component={CatSearchResult}/>
+          <Route exact path='/explore' component={Explore}/>
           <Route
             path="/favorites"
-            render={() => this.checkLogin() ? <Favorites /> : <Redirect to="/" />
+            render={() => this.state.isLogin ? <Favorites /> : <Redirect to="/" />
+            }
+          />
+          <Route
+            path="/sign-up"
+            render={() => !this.state.isLogin ? <Registration /> : <Redirect to="/" />
             }
           />
         </Switch>
@@ -72,6 +88,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = store => ({ users: store.users.user});
+const mapStateToProps = store => ({ users: store.users.user, activeUser: store.users.activeUser});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

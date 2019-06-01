@@ -1,21 +1,25 @@
-function addImageToFav(user,img) {
+function invalidLogin() {
   return {
-    type: 'ADD_IMAGE_TO_FAVORITE',
-    img: img,
-    user: user
+    type: 'INVALID_LOGIN'
+  };
+}
+function copyImgInfo() {
+  return {
+    type: 'COPY_IMAGE_TO_CLIPBOARD'
   };
 }
 
-function deleteImageFromFav(user,img) {
+function welcomeUsername(name) {
   return {
-    type: 'DELETE_IMAGE_FROM_FAVORITE',
-    img: img,
-    user: user
+    type: 'WELCOME_USER',
+    name: name
   };
 }
 
+const invalidAuthData = () => dispatch => dispatch(invalidLogin());
+const welcomeUser = (name) => dispatch => dispatch(welcomeUsername(name));
+const copyInfo = () => dispatch => dispatch(copyImgInfo());
 
-const addImageToFavorite = (user,img) => dispatch => dispatch(addImageToFav(user, img));
-const deleteImageFromFavorite = (user, img) => dispatch => dispatch(deleteImageFromFav(user, img));
-export default { addImageToFavorite, deleteImageFromFavorite};
+export default {invalidAuthData, copyInfo, welcomeUser};
+
 

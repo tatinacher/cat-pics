@@ -22,22 +22,27 @@ class CatPicRandom extends Component {
   }
   
   componentWillMount(){
-    const picture = this.props.randomPicture;
-    if (picture === ''){
+    if (this.props.randomPicture === '')
       this.props.getRandomPic();
-    }
-    this.setState({user: this.props.user});
+
+    if (this.props.user)
+      this.setState({user: this.props.user});
   }
 
   componentWillReceiveProps(nextProps){
-    const isInFav = this.isImageInFav(nextProps);
-    this.setState({image: nextProps.randomPicture, user: nextProps.user, isInFav: isInFav});
+    if (nextProps.user && nextProps.users && this.state.user !== ''){
+      const isInFav = this.isImageInFav(nextProps);
+      this.setState({user: nextProps.user, isInFav: isInFav});
+    }
+    
+    this.setState({image: nextProps.randomPicture});
   }
 
   loadNewPic(){
     this.props.getRandomPic();
     this.setState({image: this.props.randomPicture});
   }
+  
   isImageInFav(nextProps){
     const userImages = nextProps.users[this.state.user].img;
     return userImages.has(nextProps.randomPicture);
@@ -72,7 +77,7 @@ class CatPicRandom extends Component {
                 }
               />
             )}
-            <button onClick={this.loadNewPic}>Load new image</button>
+            <button className="button is-primary" onClick={this.loadNewPic}>Load new image</button>
           </div>
         </div>
       </div>

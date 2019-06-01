@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux';
-import {catBreedsReducer} from './cat-breeds-reducer';
+import {catReducer} from './cat-reducer';
 import {userReducer} from './user-reducer';
+import {infoReducer} from './info-reducer';
 
 export const rootReducer = combineReducers({
-    cats: catBreedsReducer,
-    users: userReducer
+    cats: catReducer,
+    users: userReducer,
+    info: infoReducer
   });
   

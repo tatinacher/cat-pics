@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import { withRouter } from "react-router";
 
 class HeaderAuthorized extends Component {
   render() {
+    const name = this.props.name || '';
+    if (name === '') return null;
     return (
             <div className="auth-header">
               <div className="navbar-item auth-header__item">
@@ -26,5 +30,6 @@ class HeaderAuthorized extends Component {
     );
   }
 }
+const mapStateToProps = store => ({ name: store.users.activeUser});
 
-export default HeaderAuthorized;
+export default withRouter(connect(mapStateToProps)(HeaderAuthorized));

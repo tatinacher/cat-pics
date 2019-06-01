@@ -4,20 +4,26 @@ const initialState = {
   randomPic: '',
   catBreeds: [],
   isLoaded: false,
-  isLoadedImage: false
+  exploreImages: [],
+  maxPages: 0
 };
 
-export function catBreedsReducer(state = initialState, action) {
+export function catReducer(state = initialState, action) {
   switch (action.type) {
     case types.SAVE_CAT_BREEDS:
       return Object.assign({}, state, {
         catBreeds: action.data,
         isLoaded: true
       });
+    case types.LOAD_EXPLORE_IMAGES:
+      return Object.assign({}, state, {
+        exploreImages: action.data,
+        maxPages: action.count
+      });
     case types.SAVE_RANDOM_PIC:
-        return Object.assign({}, state, {
-          randomPic: action.data
-        });
+      return Object.assign({}, state, {
+        randomPic: action.data
+      });
     case types.ADD_CAT_IMAGE:
       let breeds = state.catBreeds.slice();
       breeds.forEach(el => {
@@ -30,8 +36,7 @@ export function catBreedsReducer(state = initialState, action) {
         }
       })
       return Object.assign({}, state, {
-        catBreeds: breeds,
-        isLoadedImage: true
+        catBreeds: breeds
       });
     default:
       return state;

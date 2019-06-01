@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from "react-router";
 import userActions from '../actions/user-action';
+import infoActions from '../actions/info-action';
+import {Link} from 'react-router-dom';
 
 class Auth extends Component {
   
@@ -10,7 +12,10 @@ class Auth extends Component {
     this.state = {
       name: '',
       password: '',
-      logIn: false
+      formErrors: {email: '', password: ''},
+      emailValid: false,
+      passwordValid: false,
+      formValid: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,9 +28,11 @@ class Auth extends Component {
 
     if (users[username] && users[username].password === this.state.password) {
       this.props.authUser(username);
-      this.setState({logIn: true});
+      this.props.welcomeUser(username);
+      this.props.closeMenu();
       sessionStorage.setItem('user', 'user');
-      this.props.logIn(username);
+    } else {
+      this.props.invalidAuthData();
     }
   }
   
@@ -40,6 +47,7 @@ class Auth extends Component {
           <span className="caret-outer"></span> 
           <span className="caret-inner"></span> 
         </div>
+        <div className="button-close" onClick={this.props.closeDropdown}></div>
         <div className="field">
           <label className="label is-small">Username</label>
           <div className="control">
@@ -53,7 +61,10 @@ class Auth extends Component {
           </div>
         </div>
         <div className="field">
-          <button className="button is-link is-fullwidth">Log In</button>
+          <button className="button is-link is-fullwidth">Sign In</button>
+        </div>
+        <div className="field auth">
+          <Link to='sign-up'>Sign Up</Link>
         </div>
       </form>
     );
@@ -62,7 +73,9 @@ class Auth extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    authUser: (user) => dispatch(userActions.authUser(user))
+    authUser: (user) => dispatch(userActions.authUser(user)),
+    invalidAuthData: () => dispatch(infoActions.invalidAuthData()),
+    welcomeUser: (name) => dispatch(infoActions.welcomeUser(name))
   };
 }
 

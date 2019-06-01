@@ -27,6 +27,14 @@ function saveRandomPic(data,type) {
   };
 }
 
+function exploreImgs(data, count, type) {
+  return {
+    type: type,
+    data: data, 
+    count: count
+  };
+}
+
 const fetchData = () => {
   return dispatch => axios.get(url, config).then(response => {
     dispatch(saveDataToStore(response.data, 'SAVE_CAT_BREEDS'));
@@ -55,6 +63,20 @@ const getRandomPic = () => {
   });
 };
 
+const exploreImages = (order, page) => {
+  return dispatch => axios.get('https://api.thecatapi.com/v1/images/search?limit=9&page='+page+'&order=Asc', config).then(responseImages => {
+    let images = [];
+    const count = responseImages.headers["pagination-count"];
+    responseImages.data.forEach(element => {
+      images.push(element.url);
+    });
+    dispatch(exploreImgs(images, count, 'LOAD_EXPLORE_IMAGES'));
+  }).catch(error => {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  });
+};
 
-export default {fetchData, searchImages, getRandomPic};
+
+export default {fetchData, searchImages, getRandomPic, exploreImages};
 

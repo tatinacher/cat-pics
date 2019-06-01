@@ -21,9 +21,14 @@ function loginUser(user) {
   };
 }
 
+function logOutUser() {
+  return {
+    type: 'LOGOUT_USER'
+  };
+}
 
 const addImageToFavorite = (user,img) => dispatch => dispatch(addImageToFav(user, img));
 const authUser = (user) => dispatch => dispatch(loginUser(user));
 const deleteImageFromFavorite = (user, img) => dispatch => dispatch(deleteImageFromFav(user, img));
-export default {authUser, addImageToFavorite, deleteImageFromFavorite};
-
+const logOut = () => dispatch => dispatch(logOutUser());
+export default { authUser, addImageToFavorite, deleteImageFromFavorite, logOut};

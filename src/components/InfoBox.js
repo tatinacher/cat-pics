@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
-import CatSearch from './CatSearch';
-import CatPicRandom from './CatPicRandom';
+import {connect} from 'react-redux';
+import { withRouter } from "react-router";
 
 
-class CatPage extends Component {
+class InfoBox extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      infoText: '',
+      color: ''    
+    }
+    this.hideInfo = this.hideInfo.bind(this);
+  }
   
-  componentWillMount() {
-    document.title = this.props.title || 'Cats';
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.info.text !== '' )
+      this.setState({ infoText: nextProps.info.text,
+                      color: nextProps.info.color});
+
+      setTimeout(this.hideInfo, 2000);
+  }
+
+  hideInfo(){
+    this.setState({ infoText: ''});
   }
 
   render() {
+    let infoBoxClass = this.state.color + " infoBox toggleOut hero ";
+    if (this.state.infoText !== '') {
+      infoBoxClass = this.state.color + " hero infoBox has-text-centered is-vcentered has-text-centered toggleIn";
+    }
     return (
-      <div className="infoBox hidden">
-      
+      <div className={infoBoxClass}>
+        <p>{this.state.infoText}</p>
       </div>
     );
   }
 }
 
-export default CatPage;
+const mapStateToProps = store => ({info: store.info});
+
+export default withRouter(connect(mapStateToProps)(InfoBox));
