@@ -13,6 +13,7 @@ import userActions from '../actions/user-action';
 import InfoBox from './InfoBox';
 import Explore from './Explore';
 import Registration from './Registration';
+import infoActions from '../actions/info-action';
 
 class App extends Component {
   constructor(props){
@@ -20,41 +21,37 @@ class App extends Component {
     this.state = {
       isLogin: false
     }
-    this.isUserTokenValid = this.isUserTokenValid.bind(this);
-    this.checkLogin = this.checkLogin.bind(this);
+    this.authUserFromToken = this.authUserFromToken.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchData();
-    this.checkLogin('a');
+    this.authUserFromToken();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.state.isLogin && nextProps.activeUser !== '')
-      this.checkLogin('v');
-    if (nextProps.activeUser === '' && this.state.isLogin)
+    //login user
+    if (nextProps.activeUser !== '' && !this.state.isLogin)
+      this.authUserFromToken();
+    
+    //logout user
+    if (nextProps.activeUser === '' && this.state.isLogin){
       this.setState({isLogin: false});
+      this.props.logOutInfo();
+    }
   }
 
-  checkLogin(a) {
-    console.log(a);
-    if (this.state.isLogin)
-      return true;
+  authUserFromToken() {
     const token = sessionStorage.getItem('user');
     if(token === null)
-      return false;
-    return this.isUserTokenValid(token);
-  }
-
-  // check if valid
-  isUserTokenValid(token){
+      return;
+    
     if(this.props.users[token]){
       this.props.authUser(token);
       this.setState({isLogin: true});
-      return true;
     }
-    return false;
   }
+  
   render() {
     return (
       <section className="hero is-fullheight">
@@ -84,7 +81,8 @@ class App extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     fetchData: () => dispatch(fetch.fetchData()),
-    authUser: (user) => dispatch(userActions.authUser(user))
+    authUser: (user) => dispatch(userActions.authUser(user)),
+    logOutInfo: () => dispatch(infoActions.logOutInfo()),
   };
 }
 

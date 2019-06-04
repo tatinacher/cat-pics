@@ -9,4 +9,6 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const COPY_IMAGE_TO_CLIPBOARD = 'COPY_IMAGE_TO_CLIPBOARD';
 export const LOAD_EXPLORE_IMAGES = 'LOAD_EXPLORE_IMAGES';
 export const WELCOME_USER = 'WELCOME_USER';
+export const CLEAR_INFO = 'CLEAR_INFO';
+export const LOG_OUT_INFO = 'LOG_OUT_INFO';
 

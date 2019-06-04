@@ -7,14 +7,13 @@ import ImageCard from './ImageCard';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
-class CatPicRandom extends Component {
+class RandomImage extends Component {
   constructor(props){
     super(props);
     this.state = {
       image: '',
       user: '',
       isInFav: false,
-      photoIndex: 0,
       isOpen: false,
     }
     this.loadNewPic = this.loadNewPic.bind(this);
@@ -55,7 +54,7 @@ class CatPicRandom extends Component {
   render() {
     if (this.state.image === '')
       return <div id="preloader"></div>;
-    const { photoIndex, isOpen } = this.state;
+    const { isOpen } = this.state;
     
     return (
       <div className="container ">
@@ -69,16 +68,6 @@ class CatPicRandom extends Component {
                 nextSrc={null}
                 prevSrc={null}
                 onCloseRequest={() => this.setState({ isOpen: false })}
-                onMovePrevRequest={() =>
-                  this.setState({
-                    photoIndex: 0,
-                  })
-                }
-                onMoveNextRequest={() =>
-                  this.setState({
-                    photoIndex: 0,
-                  })
-                }
               />
             )}
             <button className="button is-primary" onClick={this.loadNewPic}>Load new image</button>
@@ -98,4 +87,4 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = store => ({ image: store.cats.randomPic, user: store.users.activeUser, users: store.users.user});
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CatPicRandom));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RandomImage));

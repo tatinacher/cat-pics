@@ -6,7 +6,6 @@ import ImageCard from './ImageCard';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import ReactPaginate from 'react-paginate';
-import thunk from 'redux-thunk';
 
 class Explore extends Component {
   constructor(props){
@@ -33,9 +32,17 @@ class Explore extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.images.length !== 0)
       this.setState({images: nextProps.images, maxPages: parseInt(nextProps.maxPages)});
+
+    let imagesInFav = [];
     if (nextProps.user && nextProps.users && this.state.user !== ''){
-      const isInFav = this.isImageInFav(nextProps);
-      this.setState({user: nextProps.user, isInFav: isInFav});
+      console.log(1)
+
+      nextProps.images.forEach(img => {
+        const isInFav = this.isImageInFav(nextProps, img);
+        imagesInFav.push(isInFav);
+      })
+     
+      this.setState({user: nextProps.user, isInFav: imagesInFav});
     }
   }
 
@@ -45,9 +52,9 @@ class Explore extends Component {
     });
   }
 
-  isImageInFav(nextProps){
+  isImageInFav(nextProps, image){
     const userImages = nextProps.users[this.state.user].img;
-    return userImages.has(nextProps.randomPicture);
+    return userImages.has(image);
   }
 
   handlePageClick(data){
@@ -67,13 +74,13 @@ class Explore extends Component {
         <div className="columns">
           <div className="column">
             <h1 className="title">
-              Explore Cats Pictures
+              Explore Cat Pictures
             </h1>
             <div className="favorite-imgs">
               {
                 this.state.images.map((img,key) => 
                   <div key={key} className="img-container">
-                    <ImageCard img={img} isInFav={this.state.isInFav} user={this.state.user} onClick={() => this.setState({ isOpen: true, photoIndex: key })} />
+                    <ImageCard img={img} isInFav={this.state.isInFav[key]} user={this.state.user} onClick={() => this.setState({ isOpen: true, photoIndex: key })} />
                   </div>
                 )
               }

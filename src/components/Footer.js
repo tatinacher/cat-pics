@@ -13,6 +13,7 @@ class Footer extends Component {
       <div className="hero-foot">
         <div className="container">
           <span>Thanks to thecatapi.com</span>
+          <span>Photo by Kasya Shahovskaya on Unsplash</span>
           <span className="is-pulled-right">Made in 2019 by Tatiana Cherednichenko</span>
         </div>
       </div>

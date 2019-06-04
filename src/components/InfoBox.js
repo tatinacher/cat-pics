@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from "react-router";
+import infoActions from '../actions/info-action';
 
 
 class InfoBox extends Component {
@@ -14,15 +15,18 @@ class InfoBox extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    if (nextProps.info.text !== '' )
+    if (nextProps.info.text !== '' ){
       this.setState({ infoText: nextProps.info.text,
-                      color: nextProps.info.color});
+        color: nextProps.info.color});
 
       setTimeout(this.hideInfo, 2000);
+    } 
   }
 
   hideInfo(){
     this.setState({ infoText: ''});
+    this.props.clearInfo();
+    console.log('hideInfo')
   }
 
   render() {
@@ -40,4 +44,10 @@ class InfoBox extends Component {
 
 const mapStateToProps = store => ({info: store.info});
 
-export default withRouter(connect(mapStateToProps)(InfoBox));
+function mapDispatchToProps(dispatch) {
+  return {
+    clearInfo: () => dispatch(infoActions.clearInfo())
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InfoBox));

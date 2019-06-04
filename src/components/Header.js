@@ -8,23 +8,30 @@ import {Link} from 'react-router-dom';
 import Auth from './Auth'
 import userActions from '../actions/user-action';
 
-
 class Header extends Component {
   constructor(props){
     super(props);
     this.state = {
       isDropdownHidden: true,
-      isMenuHidden: true,
+      isMenuHidden: true
     }
     this.logOut = this.logOut.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.toggleBurger = this.toggleBurger.bind(this);
+    this.hide = this.hide.bind(this);
+  }
+
+  hide(e){
+    if(e && e.relatedTarget){
+      e.relatedTarget.click();
+    }
+    this.setState({isDropdownHidden: true});
   }
 
   logOut() {
     sessionStorage.removeItem('user');
     this.props.logOut();
-    this.setState({username: '', isDropdownHidden: true, isMenuHidden: true});
+    this.setState({isDropdownHidden: true, isMenuHidden: true});
   }
 
   handleClick(e){
@@ -38,7 +45,7 @@ class Header extends Component {
   render() {
     let isLogin = this.props.isLogin;
     let headerAuth = isLogin ? 
-                      <HeaderAuthorized logOut={this.logOut} handleClick={this.handleClick} /> : 
+                      <HeaderAuthorized logOut={this.logOut} handleClick={this.handleClick} hide={this.hide} /> : 
                       <HeaderUnauthorized logIn={this.logIn} handleClick={this.handleClick} />;
 
     let headerDropdown = isLogin ? 
@@ -88,7 +95,7 @@ class Header extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    logOut: () => dispatch(userActions.logOut()),
+    logOut: () => dispatch(userActions.logOut())
   };
 }
 

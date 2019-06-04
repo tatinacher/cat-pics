@@ -30,7 +30,7 @@ class Auth extends Component {
       this.props.authUser(username);
       this.props.welcomeUser(username);
       this.props.closeMenu();
-      sessionStorage.setItem('user', 'user');
+      sessionStorage.setItem('user', username);
     } else {
       this.props.invalidAuthData();
     }
@@ -64,7 +64,7 @@ class Auth extends Component {
           <button className="button is-link is-fullwidth">Sign In</button>
         </div>
         <div className="field auth">
-          <Link to='sign-up'>Sign Up</Link>
+          <Link to='sign-up' onClick={this.props.closeMenu}>Sign Up</Link>
         </div>
       </form>
     );

@@ -4,12 +4,6 @@ import { withRouter } from "react-router";
 import {Link} from 'react-router-dom';
 
 class Dropdown extends Component {
-  
-  constructor(props){
-    super(props);
-    this.state = {
-    }
-  }
 
   render() {
     return (
@@ -19,9 +13,6 @@ class Dropdown extends Component {
           <span className="caret-inner"></span> 
         </div>
         <div className="button-close" onClick={this.props.closeDropdown}></div>
-        <div className="field settings">
-          <Link to="/settings" className="">Settings</Link>
-        </div>
         <div className="field logout">
           <Link to="#" className="logout-button" onClick={this.props.logOut} >Log Out</Link>
         </div>

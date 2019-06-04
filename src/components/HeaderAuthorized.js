@@ -18,12 +18,12 @@ class HeaderAuthorized extends Component {
               </Link>
             </div>
             <span className="navbar-item auth-header__item">
-              <div className="button is-primary is-inverted" onClick={this.props.handleClick}>
+              <button className="button is-primary is-inverted" onClick={this.props.handleClick} onBlur={this.props.hide}>
                 <span className="icon">
                   <i className="fas fa-user"></i>
                 </span>
                 <span>{this.props.name}</span>
-              </div>
+              </button>
             </span>
           </div>
 

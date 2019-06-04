@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CatSearch from './CatSearch';
-import CatPicRandom from './CatPicRandom';
+import RandomImage from './RandomImage';
 
 
 class CatPage extends Component {
@@ -27,7 +27,7 @@ class CatPage extends Component {
       </section>
       <section className="hero-body">
         <div className="container is-desktop is-vcentered has-text-centered">
-          <CatPicRandom />
+          <RandomImage />
         </div>
       </section>
       </div>

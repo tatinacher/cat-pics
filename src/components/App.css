@@ -237,6 +237,20 @@
 .hero-foot .container {
   padding: 20px;
 }
+.field .error{
+  color: red;
+}
+.field .error:before{
+  display: inline-block;
+  content: "\D7";
+}
+.field .pass{
+  color: green;
+}
+.field .pass:before{
+  display: inline-block;
+  content: "\2713";
+}
 @media only screen and (max-width: 768px) {
   .auth-form{
     width: 100vw;
