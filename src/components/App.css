@@ -280,6 +280,9 @@ button{
   background: #309cee;
   color: #fff;
 }
+.hero-foot span{
+  display: block;
+}
 @media only screen and (max-width: 768px) {
   .auth-form{
     width: 100vw;
