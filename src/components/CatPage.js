@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CatSearch from './CatSearch';
+import Search from './Search';
 import RandomImage from './RandomImage';
 
 
@@ -21,7 +21,7 @@ class CatPage extends Component {
             Beautiful cat pictures 
           </h2>
           <div className="level">
-            <CatSearch />
+            <Search />
           </div>
         </div>
       </section>

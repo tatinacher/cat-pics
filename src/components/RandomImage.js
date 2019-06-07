@@ -70,7 +70,11 @@ class RandomImage extends Component {
                 onCloseRequest={() => this.setState({ isOpen: false })}
               />
             )}
-            <button className="button is-primary" onClick={this.loadNewPic}>Load new image</button>
+            <button className="button is-primary is-inverted is-large" onClick={this.loadNewPic}>
+              <span className="icon is-large">
+                <i className="fas fa-sync-alt fa-2x"></i>
+              </span>
+              </button>
           </div>
         </div>
       </div>

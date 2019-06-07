@@ -5,7 +5,6 @@ import CatPage from './CatPage';
 import Header from './Header';
 import Footer from './Footer';
 import 'bulma';
-import CatSearchResult from './CatSearchResult';
 import Favorites from './Favorites';
 import {connect} from 'react-redux';
 import fetch from '../actions/fetch-data-action';
@@ -14,6 +13,7 @@ import InfoBox from './InfoBox';
 import Explore from './Explore';
 import Registration from './Registration';
 import infoActions from '../actions/info-action';
+import CatBreed from './CatBreed';
 
 class App extends Component {
   constructor(props){
@@ -26,13 +26,13 @@ class App extends Component {
 
   componentWillMount() {
     this.props.fetchData();
-    this.authUserFromToken();
   }
 
   componentWillReceiveProps(nextProps) {
     //login user
-    if (nextProps.activeUser !== '' && !this.state.isLogin)
-      this.authUserFromToken();
+    if (nextProps.activeUser !== '' && !this.state.isLogin){
+      this.authUserFromToken(nextProps);
+    }
     
     //logout user
     if (nextProps.activeUser === '' && this.state.isLogin){
@@ -41,15 +41,17 @@ class App extends Component {
     }
   }
 
-  authUserFromToken() {
+  authUserFromToken(nextProps) {
     const token = sessionStorage.getItem('user');
     if(token === null)
       return;
-    
-    if(this.props.users[token]){
-      this.props.authUser(token);
+    if(nextProps.users[token]){
       this.setState({isLogin: true});
     }
+  }
+
+  componentWillUnmount(){
+    sessionStorage.removeItem('user');
   }
   
   render() {
@@ -59,7 +61,7 @@ class App extends Component {
         <Header isLogin={this.state.isLogin} />
         <Switch>
           <Route exact path='/' render={props => <CatPage {...props} title="Beautiful pictures of cats!"/> } />
-          <Route exact path='/search' component={CatSearchResult}/>
+          <Route exact path='/search' component={CatBreed}/>
           <Route exact path='/explore' component={Explore}/>
           <Route
             path="/favorites"

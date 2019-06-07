@@ -11,4 +11,5 @@ export const LOAD_EXPLORE_IMAGES = 'LOAD_EXPLORE_IMAGES';
 export const WELCOME_USER = 'WELCOME_USER';
 export const CLEAR_INFO = 'CLEAR_INFO';
 export const LOG_OUT_INFO = 'LOG_OUT_INFO';
+export const SIGN_UP_USER = 'SIGN_UP_USER';
 

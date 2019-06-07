@@ -30,24 +30,26 @@ class ImageCard extends Component {
   }
 
   render() {
+    if (this.props.img === '')
+      return <div id="preloader"></div>;
     const divStyle = (src) => ({
       backgroundImage: 'url(' + src + ')'
     });
     const toggleFavorite = (this.props.isInFav) ? this.deleteImgFromFavorite : this.saveImgToFavorite;
     const star_icon = (this.props.isInFav) ? "fas fa-star fa-2x": "far fa-star fa-2x";
-    const showIcon = (this.props.user !== '') ? "icon has-text-star"  : "icon has-text-star hidden";
+    const iconClass = (this.props.user !== '') ? "icon has-text-star"  : "icon has-text-star hidden";
     return(
         <div key={this.props.isInFav} className="img-block" style={divStyle(this.props.img)} >
-              <button className="star-image" onClick={toggleFavorite} >
-                <span className={showIcon}>
+              <button className="icon star-image" onClick={toggleFavorite} >
+                <span className={iconClass}>
                   <i className={star_icon}></i>
                   </span>
               </button>
               <CopyToClipboard text={this.props.img}
                 onCopy={() => this.setState({copied: true})}>
-                <button className="star-image" onClick={this.props.copyInfo}>
-                  <span className={showIcon}>
-                    <i className="fas fa-copy fa-2x"></i>
+                <button className="icon star-image" onClick={this.props.copyInfo}>
+                  <span className={iconClass}>
+                    <i className="far fa-copy fa-2x"></i>
                     </span>
                 </button>
               </CopyToClipboard>

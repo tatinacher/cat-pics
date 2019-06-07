@@ -1,3 +1,6 @@
+button{
+  outline: none !important;
+}
 .ac-result {
   position: absolute;
   width: 100%;
@@ -50,7 +53,7 @@
 .has-text-star {
   color: #ffd800;
 }
-.logout-button, .star-image {
+.logout-button, .icon {
   padding: 0;
   border: none;
   background: none;
@@ -59,8 +62,8 @@
   max-width: 500px;
   max-height: 500px;
 }
-.star-image:hover {
-  color: #a55500;
+.icon:hover {
+  color: #debe0b;
 }
 .fav-image{
   max-height:100%; 
@@ -85,7 +88,7 @@
   display: block;
   margin: 15px;
 }
-.star-image{
+.icon{
   display: none;
   z-index: 100;
 }
@@ -251,6 +254,32 @@
   display: inline-block;
   content: "\2713";
 }
+.sort {
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 30px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+.icon.star-image {
+  display: none;
+}
+.icon.star-image:hover {
+  display: initial;
+}
+.randomImage .button.is-primary.is-inverted:hover {
+  background-color: transparent;
+}
+.randomImage .button.is-primary.is-inverted:hover {
+  outline: none!important;;
+}
+.randomImage .icon:hover{
+  color: #44f7c7;
+}
+.selected.item.ac-option.dropdown-item{
+  background: #309cee;
+  color: #fff;
+}
 @media only screen and (max-width: 768px) {
   .auth-form{
     width: 100vw;
@@ -300,5 +329,11 @@
   }
   .field.logout, .field.settings{
     text-align: center;
+  }
+  .buttons.is-pulled-right{
+    float: left!important;
+  }
+  .icon.star-image{
+    display: inline-block;
   }
 } 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import fetch from '../actions/fetch-data-action';
 import { withRouter } from "react-router";
-import CatSearch from './CatSearch';
+import Search from './Search';
 import ImageCard from './ImageCard';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
@@ -77,7 +77,7 @@ class CatBreed extends Component {
 
   render() {
     if (this.props.location.search === ""){
-      return <section className="level-item has-text-centered"><CatSearch /></section>;
+      return <section className="level-item has-text-centered"><Search /></section>;
     }
     if (this.state.image === '') {
       return <section className="level-item has-text-centered"><div id="preloader"></div></section>;
@@ -85,38 +85,40 @@ class CatBreed extends Component {
     const { isOpen } = this.state;
 
     return (
-      <div className="container">
-        <div className="columns">
-          <div className="column">
-            <h1 className="title">
-              {this.state.name}
-            </h1>
-            <h2 className="subtitle">
-              {this.state.description}
-            </h2>
-            <p>Temperament: {this.state.temperament}</p>
+      <div className="hero-body">
+        <div className="container">
+          <div className="columns">
+            <div className="column is-8">
+              <h1 className="title">
+                {this.state.name}
+              </h1>
+              <h2 className="subtitle">
+                {this.state.description}
+              </h2>
+              <p>Temperament: {this.state.temperament}</p>
+            </div>
+            <div className="column">
+              <ImageCard img={this.state.image} isInFav={this.state.isInFav} user={this.state.user}  onClick={() => this.setState({ isOpen: true})} />
+            </div>
+            {isOpen && (
+                <Lightbox
+                  mainSrc={this.state.image}
+                  nextSrc={null}
+                  prevSrc={null}
+                  onCloseRequest={() => this.setState({ isOpen: false })}
+                  onMovePrevRequest={() =>
+                    this.setState({
+                      photoIndex: 0,
+                    })
+                  }
+                  onMoveNextRequest={() =>
+                    this.setState({
+                      photoIndex: 0,
+                    })
+                  }
+                />
+              )}
           </div>
-          <div className="column">
-            <ImageCard img={this.state.image} isInFav={this.state.isInFav} user={this.state.user}  onClick={() => this.setState({ isOpen: true})} />
-          </div>
-          {isOpen && (
-              <Lightbox
-                mainSrc={this.state.image}
-                nextSrc={null}
-                prevSrc={null}
-                onCloseRequest={() => this.setState({ isOpen: false })}
-                onMovePrevRequest={() =>
-                  this.setState({
-                    photoIndex: 0,
-                  })
-                }
-                onMoveNextRequest={() =>
-                  this.setState({
-                    photoIndex: 0,
-                  })
-                }
-              />
-            )}
         </div>
       </div>
     );

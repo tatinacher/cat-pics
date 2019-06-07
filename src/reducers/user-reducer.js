@@ -24,11 +24,16 @@ export function userReducer(state = initialState, action) {
   let newSet = action.user ? new Set(state.user[username].img) : new Set();
 
   switch (action.type) {
+    case types.SIGN_UP_USER:
+      return Object.assign({}, state, {
+        user: Object.assign({}, state.user, {
+          [action.username]: {password: action.password, img:new Set()}
+        })
+      });
     case types.LOGIN_USER:
       return Object.assign({}, state, {
         activeUser: username,
       });
-
     case types.LOGOUT_USER:
       return Object.assign({}, state, {
         activeUser: '',

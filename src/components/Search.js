@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Autocomplete from './Autocomplete';
 import { withRouter } from "react-router";
 
-class CatSearch extends Component {
+class Search extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -43,6 +43,9 @@ class CatSearch extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    if (this.state.id === '') { 
+      return;
+    }
     const path = '/search?breed_ids='+ this.state.id;
 
     if (this.props.location.pathname !== '/search/') {
@@ -88,4 +91,4 @@ class CatSearch extends Component {
 
 const mapStateToProps = store => ({cats: store.cats.catBreeds, isLoaded: store.cats.isLoaded});
 
-export default withRouter(connect(mapStateToProps)(CatSearch));
+export default withRouter(connect(mapStateToProps)(Search));

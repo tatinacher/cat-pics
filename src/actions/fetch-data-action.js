@@ -63,8 +63,9 @@ const getRandomPic = () => {
   });
 };
 
-const exploreImages = (order, page) => {
-  return dispatch => axios.get('https://api.thecatapi.com/v1/images/search?limit=9&page='+page+'&order=Asc', config).then(responseImages => {
+const exploreImages = (order, page, type) => {
+  console.log(type)
+  return dispatch => axios.get('https://api.thecatapi.com/v1/images/search?limit=9&page='+page+'&order='+order+'&mime_types='+type, config).then(responseImages => {
     let images = [];
     const count = responseImages.headers["pagination-count"];
     responseImages.data.forEach(element => {

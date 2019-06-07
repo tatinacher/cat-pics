@@ -50,6 +50,7 @@ class Autocomplete extends Component {
   }
 
   handleKeyPress(e) {
+    console.log(e.keyCode)
     switch (e.keyCode) {
       case 38:
         if (this.state.selectedIdx <= 0) {
@@ -73,8 +74,11 @@ class Autocomplete extends Component {
         });
 
       case 13:
+          this.props.handleChangeSet(this.state.suggestions[this.state.selectedIdx][0], this.state.suggestions[this.state.selectedIdx][1])
         return this.setState({
-          query: this.state.suggestions[this.state.selectedIdx][0]
+          query: this.state.suggestions[this.state.selectedIdx][0],
+          id: this.state.suggestions[this.state.selectedIdx][1],
+          suggestionsVisible: false
         });
 
       default:

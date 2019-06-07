@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from "react-router";
 import userActions from '../actions/user-action';
+import infoActions from '../actions/info-action';
 
 class Registration extends Component {
   
@@ -11,11 +12,11 @@ class Registration extends Component {
       name: '',
       password: '',
       password_check: '',
-      logIn: false,
-      password_error: false,
-      password_length_error: false,
-      username_length_error: false,
-      name_starts_with_letter: false,
+      passwords_equal: false,
+      password_min_length: false,
+      username_min_length: false,
+      canRegister: false,
+      user_unique: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,28 +27,16 @@ class Registration extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (!this.checkUser()){
-      // ib user error
-      this.setState({username_length_error: true})
+    //console.log(1);
+    if(!(this.state.password_min_length && this.state.passwords_equal && this.state.username_min_length && this.state.user_unique))
       return;
-    }
 
-    if (!this.checkPassword()){
-      //ib password error
-      this.setState({username_error: false, password_error: true})
-      return;
-    }
+    this.props.signUpUser(this.state.name, this.state.password);
 
-    console.log(1)
+    this.props.authUser(this.state.name);
+    this.props.welcomeUser(this.state.name);
 
-    this.props.signUpUser(this.state.user, this.state.password);
-
-    this.props.authUser(this.state.username);
-    this.props.welcomeUser(this.state.username);
-
-    sessionStorage.setItem('user', this.state.username);
-    // ib hello user
-    this.props.history.push('/');
+    sessionStorage.setItem('user', this.state.name);
   }
 
   checkUser(){
@@ -62,46 +51,75 @@ class Registration extends Component {
       return false;
     return pass === this.state.password_check;
   }
-  
+
   handleChange(event) {
-    this.setState({[event.target.name]: event.target.value});
-    if(this.state.name.length > 3) {
-      this.setState({username_length_error: true});
-    } else if (this.state.username_length_error === true) {
-      this.setState({username_length_error: false});
-    }
+    this.setState({[event.target.name]: event.target.value}, function(){
+
+          if(this.state.name.length > 3) {
+            this.setState({username_min_length: true});
+          } else if (this.state.username_min_length === true) {
+            this.setState({username_min_length: false});
+          }
+
+          if(this.props.users[this.state.name]) {
+            this.setState({user_unique: false});
+          } else {
+            this.setState({user_unique: true});
+          }
+
+          if((this.state.password.length > 5) && (this.state.password === this.state.password_check)) {
+            this.setState({password_min_length: true, passwords_equal: true});
+          } else if (this.state.password.length > 5) {
+            this.setState({password_min_length: true, passwords_equal: false});
+          } else if (this.state.password.length <= 5 && this.state.password !== this.state.password_check ) {
+            this.setState({password_min_length: false, passwords_equal: false});
+          }
+          if( this.state.username_min_length && this.state.user_unique &&
+            this.state.password_min_length && this.state.passwords_equal) {
+              console.log(this.state.username_min_length , this.state.user_unique ,
+                this.state.password_min_length , this.state.passwords_equal);
+            this.setState({canRegister: true});
+          } else {
+            console.log(this.state.username_min_length , this.state.user_unique ,
+              this.state.password_min_length , this.state.passwords_equal);
+            this.setState({canRegister: false});
+          }
+    });
+    
   }
 
   errorsMessages(){
     let validation_message = [];
     let className = 'error';
-    if (this.state.name_starts_with_letter){
-      className = 'pass';
-    }
-    validation_message.push(<div key="0" className={className}> Name starts with letter</div>);
-    className = 'error';
-
-    if (this.state.username_length_error){
+    if (this.state.username_min_length){
       className = 'pass';
     }
     validation_message.push(<div key="1" className={className}> Name has at list 4 letters</div>);
     className = 'error';
 
-    if (this.state.password_length_error){
+    if (this.state.user_unique){
       className = 'pass';
     }
     
-    validation_message.push(<div key="2" className={className}> Password has at list 4 letters</div>);
+    validation_message.push(<div key="2" className={className}> Username is unique</div>);
     className = 'error';
-    if (this.state.password_error){
+
+    if (this.state.password_min_length){
       className = 'pass';
     }
-    validation_message.push(<div key="3" className={className}> The password and confirmation password match.</div>);
+    
+    validation_message.push(<div key="3" className={className}> Password has at list 6 letters</div>);
+    className = 'error';
+    if (this.state.passwords_equal){
+      className = 'pass';
+    }
+    validation_message.push(<div key="4" className={className}> The password and confirmation password match.</div>);
     return validation_message;
   }
 
   render() {
     let errors = this.errorsMessages();
+    let disable = (this.state.canRegister) ? 'enable' : 'disabled';
     return (
       <div className="registration">
         <h1 className="title">Registration</h1>
@@ -137,7 +155,9 @@ class Registration extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    authUser: (user) => dispatch(userActions.authUser(user))
+    authUser: (user) => dispatch(userActions.authUser(user)),
+    signUpUser:  (user, password) => dispatch(userActions.signUpUser(user, password)),
+    welcomeUser: (name) => dispatch(infoActions.welcomeUser(name))
   };
 }
 
