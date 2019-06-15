@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
-import './App.css';
+import './App.scss';
 import CatPage from './CatPage';
 import Header from './Header';
 import Footer from './Footer';

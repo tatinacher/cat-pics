@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class HeaderUnauthorized extends Component {
-  render() {
+function HeaderUnauthorized(props) {
     return (
             <span className="navbar-item">
-              <div className="button is-primary" onClick={this.props.handleClick}>
+              <div className="button is-primary" onClick={props.handleClick}>
                 <span className="icon">
                   <i className="fas fa-user"></i>
                 </span>
@@ -12,7 +11,6 @@ class HeaderUnauthorized extends Component {
               </div>
             </span>
     );
-  }
 }
 
 export default HeaderUnauthorized;

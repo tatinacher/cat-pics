@@ -12,7 +12,7 @@ class CatPage extends Component {
   render() {
     return (
       <div>
-      <section className="hero-body background-cat">
+      <section className="hero-body background">
         <div className="container is-desktop is-vcentered has-text-centered ">
           <h1 className="title is-3 has-text-white">
             CatPics
