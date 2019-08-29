@@ -15,3 +15,5 @@ Search component helps user to search info about cat breed.
 User can add image to favorite page by clicking a star icon in the right upper corner of particular image. Also user can copy image link to clipboard by clicking copy icon on image.
 
 API used: thecatapi.com
+
+You can see an app here: https://vast-plateau-23171.herokuapp.com/
