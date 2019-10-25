@@ -16,4 +16,4 @@ User can add image to favorite page by clicking a star icon in the right upper c
 
 API used: thecatapi.com
 
-You can see an app here: https://vast-plateau-23171.herokuapp.com/
+You can see an app here: https://catpictures.herokuapp.com/
